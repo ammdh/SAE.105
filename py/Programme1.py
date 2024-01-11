@@ -1,53 +1,55 @@
-import icalendar
-from datetime import datetime
+import csv
 
-def ics_event_to_csv(event):
-    # Récupérer les informations pertinentes de l'événement
-    summary = event.get('summary')
-    start_time = event.get('dtstart').dt
-    end_time = event.get('dtend').dt
+def get_ics_info(filename):
+  """Récupère les informations d'un fichier ics.
 
-    # Convertir les dates au format ISO 8601
-    start_time_iso = start_time.isoformat()
-    end_time_iso = end_time.isoformat()
+  Args:
+    filename: Le chemin du fichier ics.
 
-    # Créer une ligne CSV
-    csv_line = f"{start_time_iso},{end_time_iso},{summary}"
+  Returns:
+    Une liste de listes, où chaque sous-liste contient les informations d'un événement.
+  """
 
-    return csv_line
+  with open(filename, "r") as f:
+    lines = f.readlines()
 
-def ics_to_csv(file_path):
-    # Ouvrir le fichier .ics
-    with open(file_path, 'rb') as file:
-        # Charger le contenu du fichier .ics
-        cal_data = file.read()
+  # Initialise la liste des informations.
+  infos = []
 
-        # Analyser le fichier .ics
-        cal = icalendar.Calendar.from_ical(cal_data)
+  # Parcours le fichier ligne par ligne.
+  for line in lines:
+    # Ignore les lignes vides.
+    if not line.strip():
+      continue
 
-        # Récupérer les événements
-        events = cal.walk('vevent')
+    # Détermine le type d'information.
+    if line.startswith("BEGIN"):
+      info_type = line.split(":")[1]
+    elif line.startswith("END"):
+      info_type = line.split(":")[1]
+    else:
+      info_type = None
 
-        # Créer une liste pour stocker les lignes CSV
-        csv_data = []
+    # Ajoute l'information à la liste.
+    if info_type is not None:
+      infos.append([info_type] + line.split(";"))
 
-        # Parcourir chaque événement et convertir en CSV
-        for event in events:
-            csv_line = ics_event_to_csv(event)
-            csv_data.append(csv_line)
+  return infos
 
-        return csv_data
 
 def main():
-    # Chemin vers le fichier .ics
-    ics_file_path = 'chemin/vers/votre/fichier.ics'
+  """Programme principal."""
 
-    # Appeler la fonction pour convertir le fichier .ics en CSV
-    csv_data = ics_to_csv(ics_file_path)
+  # Le chemin du fichier ics.
+  filename = "/Users/arsen/OneDrive/Bureau/evenementSAE_15.ics"
 
-    # Afficher le résultat
-    for line in csv_data:
-        print(line)
+  # Récupère les informations du fichier.
+  infos = get_ics_info(filename)
+
+  # Affiche les informations.
+  for info in infos:
+    print(info)
+
 
 if __name__ == "__main__":
-    main()
+  main()
