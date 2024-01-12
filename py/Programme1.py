@@ -1,36 +1,41 @@
-def lire_fichier_ics(chemin_fichier):
-    with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
-        lignes = fichier.readlines()
-    return lignes
+import re
 
-def extraire_informations(lignes):
-    informations = []
-    evenement_en_cours = {}
+def lire_fichier_ics(chemin_fichier, nom_fichier):
+    chemin_complet = fr"{chemin_fichier}\{nom_fichier}"
+    with open(chemin_complet, 'r', encoding='utf-8') as fichier:
+        contenu = fichier.read()
+    return contenu
 
-    for ligne in lignes:
-        if ligne.startswith('BEGIN:VEVENT'):
-            evenement_en_cours = {}
-        elif ligne.startswith('END:VEVENT'):
-            informations.append(evenement_en_cours)
+def extraire_info_activite(contenu_ics):
+    debut_evenement = re.search(r'BEGIN:VEVENT', contenu_ics)
+    fin_evenement = re.search(r'END:VEVENT', contenu_ics)
+    
+    if debut_evenement and fin_evenement:
+        activite = contenu_ics[debut_evenement.end():fin_evenement.start()]
+        return activite
+    else:
+        return None
+
+def afficher_info_ligne_par_ligne(activite_ics):
+    champs = ['BEGIN', 'DTSTAMP', 'DTSTART', 'DTEND', 'SUMMARY', 'LOCATION', 'DESCRIPTION', 'UID', 'CREATED', 'LAST-MODIFIED', 'SEQUENCE', 'END']
+    
+    for champ in champs:
+        match = re.search(fr'{champ}:(.*?)(?=\n[A-Z]+:|$)', activite_ics)
+        if match:
+            print(f"{champ} : {match.group(1).strip()}")
         else:
-            champs = ligne.strip().split(':')
-            if len(champs) == 2:
-                cle, valeur = champs
-                evenement_en_cours[cle] = valeur
-
-    return informations
-
-def afficher_informations(informations):
-    for evenement in informations:
-        ligne_formattee = ";".join([f"{cle}:{valeur}" for cle, valeur in evenement.items()])
-        print(ligne_formattee)
-        print("-" * 30)
+            print(f"{champ} : Non trouvé")
 
 if __name__ == "__main__":
-    chemin_dossier = r"C:\Users\arsen\OneDrive\Bureau"
-    fichier_ics = "evenementSAE_15.ics"
-    chemin_complet = f"{chemin_dossier}\\{fichier_ics}"
+    chemin_fichier = r'C:\Users\arsen\OneDrive\Bureau'
+    nom_fichier_ics = 'evenementSAE_15.ics'
+    
+    contenu_ics = lire_fichier_ics(chemin_fichier, nom_fichier_ics)
 
-    lignes_fichier = lire_fichier_ics(chemin_complet)
-    evenements = extraire_informations(lignes_fichier)
-    afficher_informations(evenements)
+    activite_ics = extraire_info_activite(contenu_ics)
+
+    if activite_ics:
+        afficher_info_ligne_par_ligne(activite_ics)
+    else:
+        print("Aucune activité trouvée dans le fichier ICS.")
+
