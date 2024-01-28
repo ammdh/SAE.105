@@ -5,6 +5,7 @@ from collections import Counter
 
 app = Flask(__name__)
 
+
 def process_file(file_content):
     ress = file_content.split('\n')
     tab_dest = np.array([])
@@ -87,6 +88,12 @@ def upload():
 
     except Exception as e:
         return f"Une erreur s'est produite: {str(e)}"
+
+# Route pour télécharger le fichier "PORTFOLIO.xlsx"
+@app.route('/PORTFOLIO.xlsx')
+def download_portfolio():
+    filename = 'PORTFOLIO.xlsx'
+    return send_file(filename, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)

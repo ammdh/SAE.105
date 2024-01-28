@@ -1,14 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Uploader un fichier</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserer votre fichier</title>
 </head>
 <body>
-    <h1>Uploader un fichier</h1>
-    <form method="post" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".txt">
-        <input type="submit" value="Traiter le fichier">
-    </form>
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>Inserer votre fichier</h1>
+        <form method="post" action="/upload" enctype="multipart/form-data" style="margin-top: 20px;">
+            <label for="fileInput" >Merci de transmettre votre fichier TCP DUMP :</label><br>
+            <input type="file" name="file" id="fileInput" accept=".txt" required style="padding: 1rem 1.5rem; background-color: #2196f3; color: white; border: none; border-radius: 3px; cursor: pointer;">
+            <br>
+            <button type="submit" style="padding: 1rem 1.5rem; background-color: #056223; color: white; border: none; border-radius: 3px; cursor: pointer;">Traiter le fichier</button>
+        </form>
+        <br>
+        <a href="../PORTFOLIO.xlsx" download style="text-decoration: none; color: inherit;">
+            <button style="padding: 1rem 1.5rem; background-color: #f32121; color: white; border: none; border-radius: 3px; cursor: pointer;">Télécharger mon PORTFOLIO</button>
+        </a>
+  
+    </div>
 </body>
 </html>
