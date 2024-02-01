@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload</title>
+    <title>Inserer votre fichier</title>
 </head>
 <body>
-    <h1>File Upload</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="file">Choisir un fichier:</label>
-        <input type="file" name="file" id="file" accept=".txt">
-        <button type="submit">Envoyer</button>
-    </form>
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>Inserer votre fichier</h1>
+        <form method="post" action="/upload" enctype="multipart/form-data" style="margin-top: 20px;">
+            <label for="fileInput" >Merci de transmettre votre fichier TCP DUMP </label><br>
+            <input type="file" name="file" id="fileInput" accept=".txt" required style="padding: 1rem 1.5rem; background-color: #2196f3; color: white; border: none; border-radius: 3px; cursor: pointer;">
+            <br>
+            <button type="submit" style="padding: 1rem 1.5rem; background-color: #056223; color: white; border: none; border-radius: 3px; cursor: pointer;">Traiter le fichier</button>
+        </form>
+        
 </body>
 </html>
