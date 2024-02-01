@@ -64,15 +64,6 @@ def process_file(file_content):
     taille_paquet = os.path.getsize("test.csv")
     adresses_ip_frequentes = Counter(data[:, 3]).most_common(10)
 
-    with open("bilan.md", "w") as bilan_file:
-        bilan_file.write(f"Type de flags:\n{types_attaques}\n\n")
-        bilan_file.write(f"Nombre de flags de connexion [S]: {nb_flags}\n\n")
-        bilan_file.write(f"Nombre de tentatives SSH de connexion: {ssh_attempts}\n")
-        bilan_file.write(f"Nombre de pings ICMP: {icmp_count}\n")
-        bilan_file.write(f"Taille du paquet (en octets): {taille_paquet}\n\n")
-        bilan_file.write("Top 10 adresses IP les plus fréquentes:\n")
-        for adresse, count in adresses_ip_frequentes:
-            bilan_file.write(f"{adresse}: {count}\n")
 
     analyze_dumpfile(file_content)
 
