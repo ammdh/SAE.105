@@ -3,50 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inserer votre fichier</title>
+    <title>File Upload</title>
 </head>
 <body>
-    <div style="text-align: center; margin-top: 50px;">
-        <h1>Inserer votre fichier</h1>
-        <form method="post" action="/upload" enctype="multipart/form-data" style="margin-top: 20px;">
-            <label for="fileInput" >Merci de transmettre votre fichier TCP DUMP (Important mercie de renomer le fichier avec le nom "file.txt") :</label><br>
-            <input type="file" name="file" id="fileInput" accept=".txt" required style="padding: 1rem 1.5rem; background-color: #2196f3; color: white; border: none; border-radius: 3px; cursor: pointer;">
-            <br>
-            <button type="submit" style="padding: 1rem 1.5rem; background-color: #056223; color: white; border: none; border-radius: 3px; cursor: pointer;">Traiter le fichier</button>
-        </form>
-        <br>
-        <body>
-
-            <div>
-                <p>Connaître l’architecture et les technologies d’un site Web <br> (Langages et outils : HTML, CSS, CMS, JS, responsive) (70%)</p>
-                <progress value="70" max="100" style="width: 100%; height: 20px; background-color: #3498db;"></progress>
-            </div>
-            
-            <div>
-                <p>Maîtriser les rôles et les principes fondamentaux des systèmes d’exploitation <br> afin d’interagir avec ceux-ci pour la configuration et
-                    administration des réseaux et services fournis (DHCP, DNS, ...) (80%)</p>
-                <progress value="80" max="100" style="width: 100%; height: 20px; background-color: #3300ff;"></progress>
-            </div>
-            <div>
-                <p>Traduire un algorithme, dans un langage et pour un environnement donné (peut inclure plusieurs, y compris objet (65%)</p>
-                <progress value="65" max="100" style="width: 100%; height: 20px; background-color: #62b462;"></progress>
-            </div>
-            
-            <div>
-                <p>Savoir identifier les dysfonctionnements du réseau local (50%)</p>
-                <progress value="50" max="100" style="width: 100%; height: 20px; background-color: #00FF00;"></progress>
-            </div>
-            <div>
-                <p>Caractériser des systèmes de transmissions élémentaires <br> et découvrir la modélisation mathématique de leur fonctionnement (20%)</p>
-                <progress value="20" max="100" style="width: 100%; height: 20px; background-color: #e51010;"></progress>
-            </div>
-            
-            </body>
-        
-        <a href="../PORTFOLIO.xlsx" download style="text-decoration: none; color: inherit;">
-            <button style="padding: 1rem 1.5rem; background-color: #f32121; color: white; border: none; border-radius: 3px; cursor: pointer;">Télécharger mon PORTFOLIO</button>
-        </a>
-  
-    </div>
+    <h1>File Upload</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Choisir un fichier:</label>
+        <input type="file" name="file" id="file" accept=".txt">
+        <button type="submit">Envoyer</button>
+    </form>
 </body>
 </html>
