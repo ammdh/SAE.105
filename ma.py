@@ -155,6 +155,8 @@ def analyze_dumpfile(file_content):
     html_src = df_src.to_html(index=False)
     html_dst = df_dst.to_html(index=False)
 
+    
+
     plt.figure(figsize=(10, 5))
 
     plt.figure(figsize=(5, 5))
@@ -180,8 +182,7 @@ def analyze_dumpfile(file_content):
     {html_dst}
     # Présentation des mêmes données avec un diagramme à barres, ci-contre
 
-    #### On comprend donc avec ces données que la machine portant le nom de BP-Linux se fait attaquer par une machine de nom Solunet
-    #### On suppose donc un DDOS sur la machine BP-Linux8 par la machine Solunet
+ 
     ''')
 
     with open("bilan.md", "w") as bilan_file:
